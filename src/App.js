@@ -55,6 +55,10 @@ class App extends Component {
     this.setState({ _program });
   }
 
+  updateVProgram = (vProgram) => {
+    this.setState({ vProgram });
+  }
+
   step = (next) => {
     let current = (this.state.vProgram[this.state.y] || [])[this.state.x];
     if (this.state.pause)
@@ -94,7 +98,7 @@ class App extends Component {
       befunge(this.state.program, this.rs, this.ws,
         { position: this.state.step ? this.position : undefined,
           step: this.state.step ? this.step : undefined,
-          stack: this.setStack });
+          stack: this.setStack, parsed: this.updateVProgram });
     });
   }
 
@@ -135,7 +139,7 @@ class App extends Component {
                   </label>
                 </p>
                 <p className="control">
-                  <input className="input" type="text"
+                  <input className="input" type="number"
                     disabled={!this.state.step}
                     value={this.state.speed} onChange={this.setSpeed} />
                 </p>
@@ -144,7 +148,7 @@ class App extends Component {
               <div className="column">
                 <pre className="content">
                   Stack:
-                  {'\n' + (this.state.stack.join(' | ') || ' ')}
+                  {'\n' + (this.state.stack.join(' ; ') || ' ')}
                 </pre>
                 <br />
                 <pre className="content">
