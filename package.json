@@ -1,0 +1,25 @@
+{
+  "name": "befunje",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bulma": "^0.6.2",
+    "node-sass-chokidar": "^0.0.3",
+    "npm-run-all": "^4.1.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.1",
+    "split": "^1.0.1",
+    "text-encoding": "^0.6.4"
+  },
+  "scripts": {
+    "css-build": "node-sass-chokidar --include-path ./node_modules src/ -o src/",
+    "css-watch": "npm run css-build && node-sass-chokidar --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start": "npm-run-all -p css-watch react-start",
+    "build": "npm-run-all css-build react-build",
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test --env=jsdom",
+    "react-eject": "react-scripts eject"
+  }
+}
