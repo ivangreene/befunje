@@ -15,7 +15,8 @@ class App extends Component {
     x: NaN, y: NaN,
     speed: 30,
     pause: false,
-    step: true
+    step: true,
+    stack: []
   }
 
   componentWillMount = () => {
@@ -47,7 +48,7 @@ class App extends Component {
     this.setState({ program: this.state._program,
       vProgram: this.state._program.split('\n')
         .map(line => line.split('')),
-      x: 0, y: 0, output: '' });
+      x: 0, y: 0, output: '', stack: [] });
   }
 
   loadSample = (_program) => {
@@ -70,8 +71,12 @@ class App extends Component {
     this.setState({ speed: (parseInt(event.target.value, 10) || 0) });
   }
 
+  setStack = (stack) => {
+    this.setState({ stack });
+  }
+
   runProgram = () => {
-    this.setState({ output: '' }, () => {
+    this.setState({ output: '', stack: [] }, () => {
       //this.decoder = new TextDecoder("utf-8").decode;
       this.rs = Readable();
       this.rs._read = () => {
@@ -88,7 +93,8 @@ class App extends Component {
   //    });
       befunge(this.state.program, this.rs, this.ws,
         { position: this.state.step ? this.position : undefined,
-          step: this.state.step ? this.step : undefined });
+          step: this.state.step ? this.step : undefined,
+          stack: this.setStack });
     });
   }
 
@@ -136,9 +142,11 @@ class App extends Component {
                 </div>
               </div>
               <div className="column">
-                {/*<textarea className="textarea" rows="15"
-                  readOnly value={this.state.program}>
-                </textarea>*/}
+                <pre className="content">
+                  Stack:
+                  {'\n' + (this.state.stack.join(' | ') || ' ')}
+                </pre>
+                <br />
                 <pre className="content">
                   {this.state.vProgram.map((line, index) => 
                     <div key={index}>
@@ -151,9 +159,9 @@ class App extends Component {
                   }
                 </pre>
                 <br />
-                <textarea className="textarea" readOnly rows="10"
-                  disabled value={this.state.output}>
-                </textarea>
+                <pre className="content">
+                  {this.state.output}
+                </pre>
               </div>
             </div>
           </div>
