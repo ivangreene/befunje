@@ -8,4 +8,8 @@ $family-primary: $family-monospace;
   background-color: #000;
 }
 
+.column {
+  overflow: scroll;
+}
+
 @import "bulma/bulma.sass";
