@@ -114,21 +114,17 @@ class App extends Component {
                   placeholder='"!dlroW ,olleH">,# :# _@'>
                 </textarea>
                 <br />
-                <div className="field is-grouped">
-                  <p className="control">
+                <div className="buttons">
                     <a className="button" onClick={this.runProgram}>Run</a>
-                  </p>
-                  <p className="control">
                     <a className="button" onClick={this.unpause}>
-                      {this.state.pause ? 'Play_' : 'Pause' }
+                      {this.state.pause ? 'Play\u00a0' : 'Pause' }
                     </a>
-                  </p>
-                  <p className="control">
                     <a className="button" onClick={this.loadProgram}>Load</a>
-                  </p>
-                  { samples.map(sample => <p key={sample.name} className="control"><a className="button"
-                    onClick={() => this.loadSample(sample.program)}
-                    >{sample.name}</a></p>) }
+                  { samples.map(sample =>
+                      <a key={sample.name} className="button"
+                        onClick={() => this.loadSample(sample.program)}>
+                          {sample.name}</a>
+                    ) }
                 </div>
                 <div className="field is-grouped">
                 <p className="control">
